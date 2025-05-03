@@ -3,6 +3,8 @@ package com.lanchonete.api.adapters.driver.controller;
 import com.lanchonete.api.core.model.DTO.DadosAtualizaProduto;
 import com.lanchonete.api.core.model.DTO.DadosCadastroProduto;
 import com.lanchonete.api.core.model.DTO.DadosListagemProduto;
+import com.lanchonete.api.core.model.models.Enum.Categoria;
+import com.lanchonete.api.core.portas.service.ProdutoServicePort;
 import com.lanchonete.api.core.service.ProdutoService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProdutoController {
 
     @Autowired
-    private ProdutoService service;
+    private ProdutoServicePort service;
 
     @PostMapping(consumes = "multipart/form-data")
     @Transactional
@@ -33,6 +35,13 @@ public class ProdutoController {
 
     }
 
+    @GetMapping("/{categoria}")
+    public Page<DadosListagemProduto> listarCategoria(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao, @PathVariable Categoria categoria){
+
+        return service.recuperar(paginacao,categoria);
+
+    }
+
     @PutMapping(consumes = "multipart/form-data")
     @Transactional
     public void atualizar(@ModelAttribute DadosAtualizaProduto dados){
@@ -45,4 +54,8 @@ public class ProdutoController {
         service.deletar(id);
 
     }
+
+
+
+
 }

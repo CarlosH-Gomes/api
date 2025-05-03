@@ -3,8 +3,10 @@ package com.lanchonete.api.core.service;
 import com.lanchonete.api.core.model.DTO.DadosAtualizaProduto;
 import com.lanchonete.api.core.model.DTO.DadosCadastroProduto;
 import com.lanchonete.api.core.model.DTO.DadosListagemProduto;
+import com.lanchonete.api.core.model.models.Enum.Categoria;
 import com.lanchonete.api.core.model.models.Produto;
 import com.lanchonete.api.adapters.driven.repository.SpringProdutoRepository;
+import com.lanchonete.api.core.portas.repository.ProdutoRepositoryPort;
 import com.lanchonete.api.core.portas.service.ProdutoServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Service;
 public class ProdutoService implements ProdutoServicePort {
 
     @Autowired
-    private SpringProdutoRepository repository;
+    private ProdutoRepositoryPort repository;
 
     @Autowired
     private StorageFileService storageFileService;
@@ -32,6 +34,10 @@ public class ProdutoService implements ProdutoServicePort {
 
     public Page<DadosListagemProduto> recuperar(Pageable paginacao) {
         return repository.findAllByAtivoTrue(paginacao).map(DadosListagemProduto::new);
+    }
+
+    public Page<DadosListagemProduto> recuperar(Pageable paginacao, Categoria categoria) {
+        return repository.findAllByCategoriaAndAtivo(paginacao,categoria).map(DadosListagemProduto::new);
     }
 
     public void atualizar(DadosAtualizaProduto dados) {
