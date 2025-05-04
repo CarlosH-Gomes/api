@@ -52,6 +52,7 @@ public class ProdutoEntity {
 
     public void atualizar(Produto produto)
     {
+
         this.ativo = produto.getAtivo();
         this.nome = produto.getNome();
         this.preco = produto.getPreco();
@@ -61,7 +62,7 @@ public class ProdutoEntity {
     }
 
     public Produto toProduto() {
-        return new Produto(this.id,this.nome, this.categoria, this.preco, this.descricao,this.link_imagem);
+        return new Produto(this.id,this.nome,this.ativo, this.categoria, this.preco, this.descricao,this.link_imagem);
     }
 
 

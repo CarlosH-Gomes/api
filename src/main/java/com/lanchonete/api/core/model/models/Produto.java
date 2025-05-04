@@ -29,13 +29,14 @@ public class Produto {
         this.descricao = dados.descricao();
     }
 
-    public Produto(Long id, String nome, Categoria categoria, Double preco, String descricao, String linkImagem) {
+    public Produto(Long id, String nome, Boolean ativo,Categoria categoria, Double preco, String descricao, String linkImagem) {
         this.id = id;
         this.nome = nome;
         this.categoria =categoria;
         this.preco = preco;
         this.descricao = descricao;
         this.link_imagem = linkImagem;
+        this.ativo = ativo;
     }
 
 
@@ -69,6 +70,7 @@ public class Produto {
     }
 
     public void atualizarInformacoes(DadosAtualizaProduto dados, String imagemUrl) {
+        
         if(dados.nome() != null){
             this.nome = dados.nome();
         }
