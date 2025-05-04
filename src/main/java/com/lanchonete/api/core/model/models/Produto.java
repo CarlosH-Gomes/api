@@ -9,26 +9,15 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "produtos")
-@Entity(name = "Produto")
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
+
 public class Produto {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Enumerated(EnumType.STRING)
     private Categoria categoria;
     private String nome;
     private Double preco;
     private String descricao;
-
-
     private String link_imagem;
-
     private Boolean ativo;
 
     public Produto(DadosCadastroProduto dados) {
@@ -40,7 +29,46 @@ public class Produto {
         this.descricao = dados.descricao();
     }
 
-    public void atualizarInformacoes(DadosAtualizaProduto dados,String imagemUrl) {
+    public Produto(Long id, String nome, Categoria categoria, Double preco, String descricao, String linkImagem) {
+        this.id = id;
+        this.nome = nome;
+        this.categoria =categoria;
+        this.preco = preco;
+        this.descricao = descricao;
+        this.link_imagem = linkImagem;
+    }
+
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public String getLink_imagem() {
+        return link_imagem;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void atualizarInformacoes(DadosAtualizaProduto dados, String imagemUrl) {
         if(dados.nome() != null){
             this.nome = dados.nome();
         }

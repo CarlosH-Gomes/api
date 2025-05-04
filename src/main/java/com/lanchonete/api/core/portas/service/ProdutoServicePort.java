@@ -10,9 +10,9 @@ import org.springframework.data.domain.Pageable;
 
 public interface ProdutoServicePort {
 
-    public void salvar(DadosCadastroProduto dados);
-    public Page<DadosListagemProduto> recuperar(Pageable paginacao);
-    public Page<DadosListagemProduto> recuperar(Pageable paginacao, Categoria categoria);
-    public void atualizar(DadosAtualizaProduto dados);
-    public void deletar(Long id);
+     void salvar(DadosCadastroProduto dados);
+     Page<DadosListagemProduto> recuperar(Pageable paginacao);
+     Page<DadosListagemProduto> recuperar(Pageable paginacao, Categoria categoria);
+     void atualizar(DadosAtualizaProduto dados);
+     void deletar(Long id);
 }

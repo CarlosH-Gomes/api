@@ -1,5 +1,6 @@
 package com.lanchonete.api.core.model.DTO;
 
+import com.lanchonete.api.adapters.driven.entity.ProdutoEntity;
 import com.lanchonete.api.core.model.models.Enum.Categoria;
 import com.lanchonete.api.core.model.models.Produto;
 

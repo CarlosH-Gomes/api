@@ -5,7 +5,6 @@ import com.lanchonete.api.core.model.DTO.DadosCadastroProduto;
 import com.lanchonete.api.core.model.DTO.DadosListagemProduto;
 import com.lanchonete.api.core.model.models.Enum.Categoria;
 import com.lanchonete.api.core.portas.service.ProdutoServicePort;
-import com.lanchonete.api.core.service.ProdutoService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
