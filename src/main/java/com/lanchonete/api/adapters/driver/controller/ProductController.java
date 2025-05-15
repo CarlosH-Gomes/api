@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -26,23 +27,21 @@ public class ProductController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ProductDTO> create(@RequestBody @Valid CreateProductForm createProductForm, UriComponentsBuilder uriBuilder) {
-        ProductDTO productDTO = service.save(createProductForm);
-        URI uri = uriBuilder.path("/products/{id}").buildAndExpand(productDTO.getId()).toUri();
-        return ResponseEntity.created(uri).body(productDTO);
+    public ResponseEntity<ProductDTO> create(@RequestBody @Valid CreateProductForm createProductForm) {
+        return new ResponseEntity<>(service.save(createProductForm), HttpStatus.CREATED);
     }
 
     @PutMapping
     @Transactional
     public ResponseEntity<ProductDTO> update(@RequestBody @Valid UpdateProductForm updateProductForm){
-        ProductDTO productDTO = service.update(updateProductForm);
-        return ResponseEntity.accepted().body(productDTO);
+        return new ResponseEntity<>(service.update(updateProductForm),HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @GetMapping
