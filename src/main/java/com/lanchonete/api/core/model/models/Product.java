@@ -59,16 +59,19 @@ public class Product {
         return active;
     }
 
-    public void updateProduto(DadosUpdateProduct dados) {
+    public void updateProduto(DadosUpdateProduct dadosUpdateProduct) {
         
-        if(dados.name() != null){
-            this.name = dados.name();
+        if(dadosUpdateProduct.name() != null){
+            this.name = dadosUpdateProduct.name();
         }
-        if(dados.price() != null){
-            this.price = dados.price();
+        if(dadosUpdateProduct.price() != null){
+            this.price = dadosUpdateProduct.price();
         }
-        if(dados.description() != null){
-            this.description = dados.description();
+        if(dadosUpdateProduct.category() != null){
+            this.category = dadosUpdateProduct.category();
+        }
+        if(dadosUpdateProduct.description() != null){
+            this.description = dadosUpdateProduct.description();
         }
 
     }

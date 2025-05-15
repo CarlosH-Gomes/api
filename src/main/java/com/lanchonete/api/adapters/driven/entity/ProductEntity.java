@@ -40,6 +40,7 @@ public class ProductEntity {
         this.active = product.getActive();
         this.name = product.getName();
         this.price = product.getPrice();
+        this.category = product.getCategory();
         this.description = product.getDescription();
     }
 
