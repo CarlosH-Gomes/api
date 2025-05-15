@@ -1,5 +1,6 @@
 package com.lanchonete.api.adapters.driven.repository;
 
+import com.lanchonete.api.adapters.domains.produto.ProductDTO;
 import com.lanchonete.api.adapters.driven.entity.ProductEntity;
 import com.lanchonete.api.core.model.models.Product;
 import com.lanchonete.api.core.portas.repository.ProductRepositoryPort;
@@ -18,17 +19,17 @@ public class ProductRepository implements ProductRepositoryPort {
     }
 
     @Override
-    public void save(Product product) {
+    public ProductEntity save(Product product) {
 
         ProductEntity productEntity =  new ProductEntity(product);
-        this.springProductRepository.save(productEntity);
+        return this.springProductRepository.save(productEntity);
     }
 
     @Override
-    public void update(Product product) {
+    public ProductEntity update(Product product) {
         ProductEntity productEntity =  this.springProductRepository.findById(product.getId()).get();
         productEntity.updateProduct(product);
-        this.springProductRepository.save(productEntity);
+        return this.springProductRepository.save(productEntity);
     }
 
     @Override

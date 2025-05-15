@@ -1,7 +1,7 @@
 package com.lanchonete.api.core.model.models;
 
-import com.lanchonete.api.adapters.DTO.DadosUpdateProduct;
-import com.lanchonete.api.adapters.DTO.DadosCreateProduct;
+import com.lanchonete.api.adapters.domains.produto.UpdateProductForm;
+import com.lanchonete.api.adapters.domains.produto.CreateProductForm;
 import com.lanchonete.api.core.model.models.Enum.ProductCategory;
 
 
@@ -14,7 +14,7 @@ public class Product {
     private String description;
     private Boolean active;
 
-    public Product(DadosCreateProduct dados) {
+    public Product(CreateProductForm dados) {
 
         this.active = true;
         this.name = dados.name();
@@ -59,19 +59,19 @@ public class Product {
         return active;
     }
 
-    public void updateProduto(DadosUpdateProduct dadosUpdateProduct) {
+    public void updateProduto(UpdateProductForm updateProductForm) {
         
-        if(dadosUpdateProduct.name() != null){
-            this.name = dadosUpdateProduct.name();
+        if(updateProductForm.name() != null){
+            this.name = updateProductForm.name();
         }
-        if(dadosUpdateProduct.price() != null){
-            this.price = dadosUpdateProduct.price();
+        if(updateProductForm.price() != null){
+            this.price = updateProductForm.price();
         }
-        if(dadosUpdateProduct.category() != null){
-            this.category = dadosUpdateProduct.category();
+        if(updateProductForm.category() != null){
+            this.category = updateProductForm.category();
         }
-        if(dadosUpdateProduct.description() != null){
-            this.description = dadosUpdateProduct.description();
+        if(updateProductForm.description() != null){
+            this.description = updateProductForm.description();
         }
 
     }

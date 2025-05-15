@@ -1,17 +1,17 @@
 package com.lanchonete.api.core.portas.service;
 
-import com.lanchonete.api.adapters.DTO.DadosUpdateProduct;
-import com.lanchonete.api.adapters.DTO.DadosCreateProduct;
-import com.lanchonete.api.adapters.DTO.DadosListProduct;
+import com.lanchonete.api.adapters.domains.produto.ProductDTO;
+import com.lanchonete.api.adapters.domains.produto.UpdateProductForm;
+import com.lanchonete.api.adapters.domains.produto.CreateProductForm;
+import com.lanchonete.api.adapters.domains.produto.ListProductForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
 
 public interface ProductServicePort {
 
-     void save(DadosCreateProduct dadosCreateProduct);
-     void update(DadosUpdateProduct dadosUpdateProduct);
+     ProductDTO save(CreateProductForm createProductForm);
+     ProductDTO update(UpdateProductForm updateProductForm);
      void delete(Long id);
-     Page<DadosListProduct> recover(Pageable pageable);
+     Page<ListProductForm> recover(Pageable pageable);
 
 }

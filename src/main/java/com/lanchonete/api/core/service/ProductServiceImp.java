@@ -1,8 +1,10 @@
 package com.lanchonete.api.core.service;
 
-import com.lanchonete.api.adapters.DTO.DadosUpdateProduct;
-import com.lanchonete.api.adapters.DTO.DadosCreateProduct;
-import com.lanchonete.api.adapters.DTO.DadosListProduct;
+import com.lanchonete.api.adapters.domains.produto.ProductDTO;
+import com.lanchonete.api.adapters.domains.produto.UpdateProductForm;
+import com.lanchonete.api.adapters.domains.produto.CreateProductForm;
+import com.lanchonete.api.adapters.domains.produto.ListProductForm;
+import com.lanchonete.api.adapters.driven.entity.ProductEntity;
 import com.lanchonete.api.core.model.models.Product;
 import com.lanchonete.api.core.portas.repository.ProductRepositoryPort;
 import com.lanchonete.api.core.portas.service.ProductServicePort;
@@ -20,16 +22,18 @@ public class ProductServiceImp implements ProductServicePort {
     }
 
     @Override
-    public void save(DadosCreateProduct dadosCreateProduct) {
-        Product product = new Product(dadosCreateProduct);
-        repository.save(product);
+    public ProductDTO save(CreateProductForm createProductForm) {
+        Product product = new Product(createProductForm);
+        ProductEntity productSave = repository.save(product);
+        return new ProductDTO(productSave.getId(), productSave.getCategory(), productSave.getName(), productSave.getPrice(), productSave.getDescription(), productSave.getActive());
     }
 
     @Override
-    public void update(DadosUpdateProduct dadosUpdateProduct) {
-        var product = repository.getReferenceById(dadosUpdateProduct.id());
-        product.updateProduto(dadosUpdateProduct);
-        repository.update(product);
+    public ProductDTO update(UpdateProductForm updateProductForm) {
+        var product = repository.getReferenceById(updateProductForm.id());
+        product.updateProduto(updateProductForm);
+        ProductEntity productSave =   repository.update(product);
+        return new ProductDTO(productSave.getId(), productSave.getCategory(), productSave.getName(), productSave.getPrice(), productSave.getDescription(), productSave.getActive());
     }
 
     @Override
@@ -40,8 +44,8 @@ public class ProductServiceImp implements ProductServicePort {
     }
 
     @Override
-    public Page<DadosListProduct> recover(Pageable pageable) {
-        return repository.findAllByActiveTrue(pageable).map(DadosListProduct::new);
+    public Page<ListProductForm> recover(Pageable pageable) {
+        return repository.findAllByActiveTrue(pageable).map(ListProductForm::new);
     }
 
 }

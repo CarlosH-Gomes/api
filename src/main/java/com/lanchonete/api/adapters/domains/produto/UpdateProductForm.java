@@ -1,9 +1,9 @@
-package com.lanchonete.api.adapters.DTO;
+package com.lanchonete.api.adapters.domains.produto;
 
 import com.lanchonete.api.core.model.models.Enum.ProductCategory;
 import jakarta.validation.constraints.NotNull;
 
-public record DadosUpdateProduct(
+public record UpdateProductForm(
 
         @NotNull
         Long id,

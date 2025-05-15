@@ -26,6 +26,29 @@ public class ProductEntity {
     private String description;
     private Boolean active;
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ProductCategory getCategory() {
+        return category;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public ProductEntity(Product product) {
         this.active = true;

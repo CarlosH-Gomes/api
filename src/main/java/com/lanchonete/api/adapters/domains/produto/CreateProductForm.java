@@ -1,10 +1,10 @@
-package com.lanchonete.api.adapters.DTO;
+package com.lanchonete.api.adapters.domains.produto;
 
 import com.lanchonete.api.core.model.models.Enum.ProductCategory;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record DadosCreateProduct(
+public record CreateProductForm(
 
         @NotBlank
         String name,
