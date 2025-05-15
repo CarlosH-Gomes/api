@@ -1,9 +1,7 @@
 package com.lanchonete.api.core.service;
 
 import com.lanchonete.api.adapters.domains.produto.ProductDTO;
-import com.lanchonete.api.adapters.domains.produto.UpdateProductForm;
-import com.lanchonete.api.adapters.domains.produto.CreateProductForm;
-import com.lanchonete.api.adapters.domains.produto.ListProductForm;
+import com.lanchonete.api.adapters.domains.produto.ProductForm;
 import com.lanchonete.api.adapters.driven.entity.ProductEntity;
 import com.lanchonete.api.core.model.models.Product;
 import com.lanchonete.api.core.portas.repository.ProductRepositoryPort;
@@ -22,16 +20,16 @@ public class ProductServiceImp implements ProductServicePort {
     }
 
     @Override
-    public ProductDTO save(CreateProductForm createProductForm) {
-        Product product = new Product(createProductForm);
+    public ProductDTO save(ProductForm productForm) {
+        Product product = new Product(productForm);
         ProductEntity productSave = repository.save(product);
         return new ProductDTO(productSave.getId(), productSave.getCategory(), productSave.getName(), productSave.getPrice(), productSave.getDescription(), productSave.getActive());
     }
 
     @Override
-    public ProductDTO update(UpdateProductForm updateProductForm) {
-        var product = repository.getReferenceById(updateProductForm.id());
-        product.updateProduto(updateProductForm);
+    public ProductDTO update(ProductForm productForm) {
+        var product = repository.getReferenceById(productForm.id());
+        product.updateProduto(productForm);
         ProductEntity productSave =   repository.update(product);
         return new ProductDTO(productSave.getId(), productSave.getCategory(), productSave.getName(), productSave.getPrice(), productSave.getDescription(), productSave.getActive());
     }
@@ -44,8 +42,8 @@ public class ProductServiceImp implements ProductServicePort {
     }
 
     @Override
-    public Page<ListProductForm> recover(Pageable pageable) {
-        return repository.findAllByActiveTrue(pageable).map(ListProductForm::new);
+    public Page<ProductForm> recover(Pageable pageable) {
+        return repository.findAllByActiveTrue(pageable).map(ProductForm::new);
     }
 
 }

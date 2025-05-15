@@ -1,9 +1,7 @@
 package com.lanchonete.api.adapters.driver.controller;
 
 import com.lanchonete.api.adapters.domains.produto.ProductDTO;
-import com.lanchonete.api.adapters.domains.produto.UpdateProductForm;
-import com.lanchonete.api.adapters.domains.produto.CreateProductForm;
-import com.lanchonete.api.adapters.domains.produto.ListProductForm;
+import com.lanchonete.api.adapters.domains.produto.ProductForm;
 import com.lanchonete.api.core.portas.service.ProductServicePort;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -27,14 +25,17 @@ public class ProductController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ProductDTO> create(@RequestBody @Valid CreateProductForm createProductForm) {
-        return new ResponseEntity<>(service.save(createProductForm), HttpStatus.CREATED);
+    public ResponseEntity<ProductDTO> create(@RequestBody @Valid ProductForm productForm, UriComponentsBuilder uriBuilder) {
+        ProductDTO productDTO = service.save(productForm);
+
+        URI uri = uriBuilder.path("/api/products/{id}").buildAndExpand(productDTO.getId()).toUri();
+        return  ResponseEntity.created(uri).body(productDTO);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<ProductDTO> update(@RequestBody @Valid UpdateProductForm updateProductForm){
-        return new ResponseEntity<>(service.update(updateProductForm),HttpStatus.ACCEPTED);
+    public ResponseEntity<ProductDTO> update(@RequestBody @Valid ProductForm productForm){
+        return new ResponseEntity<>(service.update(productForm),HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
@@ -45,7 +46,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public Page<ListProductForm> listar(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable){
+    public Page<ProductForm> listar(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable){
         return service.recover(pageable);
     }
 

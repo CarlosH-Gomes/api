@@ -1,7 +1,6 @@
 package com.lanchonete.api.core.model.models;
 
-import com.lanchonete.api.adapters.domains.produto.UpdateProductForm;
-import com.lanchonete.api.adapters.domains.produto.CreateProductForm;
+import com.lanchonete.api.adapters.domains.produto.ProductForm;
 import com.lanchonete.api.core.model.models.Enum.ProductCategory;
 
 
@@ -14,7 +13,7 @@ public class Product {
     private String description;
     private Boolean active;
 
-    public Product(CreateProductForm dados) {
+    public Product(ProductForm dados) {
 
         this.active = true;
         this.name = dados.name();
@@ -59,19 +58,19 @@ public class Product {
         return active;
     }
 
-    public void updateProduto(UpdateProductForm updateProductForm) {
+    public void updateProduto(ProductForm productForm) {
         
-        if(updateProductForm.name() != null){
-            this.name = updateProductForm.name();
+        if(productForm.name() != null){
+            this.name = productForm.name();
         }
-        if(updateProductForm.price() != null){
-            this.price = updateProductForm.price();
+        if(productForm.price() != null){
+            this.price = productForm.price();
         }
-        if(updateProductForm.category() != null){
-            this.category = updateProductForm.category();
+        if(productForm.category() != null){
+            this.category = productForm.category();
         }
-        if(updateProductForm.description() != null){
-            this.description = updateProductForm.description();
+        if(productForm.description() != null){
+            this.description = productForm.description();
         }
 
     }
