@@ -15,32 +15,17 @@ public class ClientRepository implements ClientRepositoryPort {
     }
 
     public Client save(Client client){
-        ClientEntity clientJPAEntity = new ClientEntity(client);
-        ClientEntity newClient = jpaRepository.save(clientJPAEntity);
-        return new Client(
-                newClient.getId(),
-                newClient.getName(),
-                newClient.getCpf(),
-                newClient.getEmail(),
-                newClient.getPhone(),
-                newClient.getCreatedAt());
+        ClientEntity newClient = jpaRepository.save(new ClientEntity(client));
+        return newClient.toModel();
     }
 
-    @Override
     public Client findByCpf(String cpf) {
         ClientEntity jpaClient = this.jpaRepository.findByCpf(cpf);
-        return new Client(
-                jpaClient.getId(),
-                jpaClient.getName(),
-                jpaClient.getCpf(),
-                jpaClient.getEmail(),
-                jpaClient.getPhone(),
-                jpaClient.getCreatedAt());
+        if(jpaClient == null) return null;
+        return jpaClient.toModel();
     }
 
-    @Override
-    public boolean existsByEmail(String email) {
-        return this.jpaRepository.existsByEmail(email);
+    public boolean existsByEmailOrByCpf(String email, String cpf) {
+        return this.jpaRepository.existsByEmailOrCpf(email, cpf);
     }
-
 }

@@ -61,4 +61,8 @@ import java.time.LocalDateTime;
         public LocalDateTime getUpdatedAt() {
             return updatedAt;
         }
+
+        public Client toModel(){
+            return new Client(this.id, this.name, this.cpf, this.email, this.phone, this.createdAt);
+        }
     }
