@@ -1,5 +1,6 @@
 package com.lanchonete.api.core.portas.repository;
 
+import com.lanchonete.api.adapters.domains.produto.FilterProductDTO;
 import com.lanchonete.api.adapters.domains.produto.ProductDTO;
 import com.lanchonete.api.adapters.driven.entity.ProductEntity;
 import com.lanchonete.api.core.model.models.Product;
@@ -13,4 +14,5 @@ public interface ProductRepositoryPort {
     ProductEntity update(Product product);
     Product getReferenceById(long id);
     Page<Product> findAllByActiveTrue(Pageable pageable);
+    Page<Product> findAllByFilter(FilterProductDTO filter, Pageable pageable);
 }

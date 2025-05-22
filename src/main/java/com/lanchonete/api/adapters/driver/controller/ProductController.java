@@ -1,5 +1,6 @@
 package com.lanchonete.api.adapters.driver.controller;
 
+import com.lanchonete.api.adapters.domains.produto.FilterProductDTO;
 import com.lanchonete.api.adapters.domains.produto.ProductDTO;
 import com.lanchonete.api.adapters.domains.produto.ProductForm;
 import com.lanchonete.api.core.portas.service.ProductServicePort;
@@ -8,9 +9,11 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -48,6 +51,14 @@ public class ProductController {
     @GetMapping
     public Page<ProductForm> listar(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable){
         return service.recover(pageable);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<?> findAllByFilter(@RequestBody FilterProductDTO filter,
+                                                  @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                                                  @RequestParam(name = "status", required = false) String status) {
+
+        return ResponseEntity.ok().body(service.findAllByFilter(filter, pageable));
     }
 
 }
