@@ -1,9 +1,11 @@
 package com.lanchonete.api.adapters.driven.repository;
 
-import com.lanchonete.api.adapters.domains.produto.ProductDTO;
+import com.lanchonete.api.adapters.domains.produto.FilterProductDTO;
 import com.lanchonete.api.adapters.driven.entity.ProductEntity;
 import com.lanchonete.api.core.model.models.Product;
 import com.lanchonete.api.core.portas.repository.ProductRepositoryPort;
+import com.lanchonete.api.core.service.specification.ProductSpecification;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductRepository implements ProductRepositoryPort {
 
+    @Autowired
+    private ProductSpecification productSpecification;
     private final SpringProductRepository springProductRepository;
 
     public ProductRepository(SpringProductRepository springProductRepository)
@@ -45,4 +49,10 @@ public class ProductRepository implements ProductRepositoryPort {
         return produtos;
     }
 
+    @Override
+    public Page<Product> findAllByFilter(FilterProductDTO filter, Pageable pageable) {
+        Page<ProductEntity> produtosEntity = this.springProductRepository.findAll(productSpecification.getFilter(filter), pageable);
+        Page<Product> produtos = produtosEntity.map(ProductEntity::toProduct);
+        return produtos;
+    }
 }
